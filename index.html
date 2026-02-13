@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>For My Valentine 🤍</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(to bottom, #ffe6f0, #fff5f9);
+            text-align: center;
+            overflow-x: hidden;
+            cursor: pointer; /* shows user can click to start music */
+        }
+
+        section {
+            padding: 60px 20px;
+        }
+
+        h1 {
+            color: #ff6f91;
+        }
+
+        .card {
+            background: white;
+            padding: 30px;
+            margin: 40px auto;
+            width: 350px;
+            border-radius: 25px;
+            box-shadow: 0 15px 40px rgba(255,182,193,0.4);
+        }
+
+        button {
+            background-color: #ff9aa2;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            margin: 10px;
+            border-radius: 15px;
+            font-size: 15px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background-color: #ff6f91;
+        }
+
+        #noBtn {
+            position: relative;
+        }
+
+        #secretPage {
+            display: none;
+            background: #fff;
+            padding: 80px 20px;
+        }
+
+        .heart {
+            position: absolute;
+            animation: float 6s linear infinite, glow 2s ease-in-out infinite;
+            text-shadow:
+                0 0 5px #ff6f91,
+                0 0 10px #ff6f91,
+                0 0 15px #ff6f91,
+                0 0 20px #ff6f91;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0); opacity: 1; }
+            100% { transform: translateY(-900px); opacity: 0; }
+        }
+
+        @keyframes glow {
+            0%, 100% {
+                text-shadow: 0 0 5px #ff6f91, 0 0 10px #ff6f91;
+            }
+            50% {
+                text-shadow: 0 0 15px #ff6f91, 0 0 25px #ff6f91;
+            }
+        }
+
+        .letter {
+            font-style: italic;
+            color: #555;
+            margin-top: 20px;
+            line-height: 1.6;
+        }
+
+        #hiddenMessage {
+            display: none;
+            margin-top: 20px;
+            color: #ff6f91;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+
+<section id="mainPage">
+    <div class="card">
+        <h1>Hi Shazy 🤍</h1>
+        <p>You make everything feel softer and brighter.</p>
+        <p>I’m so grateful for every moment with you.</p>
+        <p>Will you be my Valentine? 🌸</p>
+
+        <button onclick="showSecret()">Yes</button>
+        <button id="noBtn" onmouseover="moveButton()">No</button>
+    </div>
+</section>
+
+<section id="secretPage">
+    <h1>You Said Yes 🤍✨</h1>
+    <div class="card">
+        <p class="letter">
+Shazy my baby 😣💞,
+
+From the very beginning, i knew that there was something about you that felt different.
+
+You’re cute in a way that isn’t just about how you look,
+it’s in the way you talk, the way you react, the way you exist.
+You’re beautiful, yes, but it’s more than that.
+It’s the softness in your energy.
+It’s the calm you bring to me without even trying.
+
+I love your music taste.
+The way the songs you like somehow feel like pieces of you
+gentle, emotional, and playful.
+Listening to them makes me feel closer to you and reminds me of you..
+Like I’m understanding your world a little more each time.
+
+One of my favorite memories is when we were teasing each other,
+ragebaiting back and forth like we were in a competition
+but never actually getting mad.
+It was fun, effortless, safe.
+That’s when I realized that
+we could joke, argue playfully, push each other a little
+and still feel secure and happy at the same time..
+
+You’re not just someone I like.
+You’re someone I feel comfortable with.
+Someone I admire.
+Someone I genuinely appreciate.
+Someone that i value the most with my life.
+
+And if you’ll let me which i know you would 😖,
+I don’t just want to be your Valentine today.
+I want to keep choosing you
+in the teasing moments,
+in the quiet moments,
+in the music-sharing moments,
+and in all the soft ones in between us.
+
+You’re special to me, Baby.
+More than you probably realize. ❤💞😖🌸
+        </p>
+
+        <p id="hiddenMessage">
+By the way… I’d still choose you even if you ragebait me forever 😛💗
+        </p>
+    </div>
+</section>
+
+<!-- Background music -->
+<audio id="bgMusic" loop>
+    <source src="music.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+function moveButton() {
+    var btn = document.getElementById("noBtn");
+    btn.style.position = "absolute";
+    btn.style.left = Math.random() * (window.innerWidth - 100) + "px";
+    btn.style.top = Math.random() * (window.innerHeight - 50) + "px";
+}
+
+function showSecret() {
+    document.getElementById("mainPage").style.display = "none";
+    document.getElementById("secretPage").style.display = "block";
+
+    // Play music when Yes is clicked (safely)
+    const music = document.getElementById("bgMusic");
+    music.play().catch(() => {
+        alert("Click anywhere to start the music!");
+    });
+
+    // Show hidden playful message after 5 seconds
+    setTimeout(function() {
+        document.getElementById("hiddenMessage").style.display = "block";
+    }, 5000);
+}
+
+// Create floating hearts
+function createHeart() {
+    const heart = document.createElement("div");
+    heart.classList.add("heart");
+    heart.innerHTML = "🤍";
+    heart.style.left = Math.random() * window.innerWidth + "px";
+    heart.style.top = window.innerHeight + "px";
+    heart.style.fontSize = (Math.random() * 20 + 15) + "px";
+    document.body.appendChild(heart);
+
+    setTimeout(() => {
+        heart.remove();
+    }, 6000);
+}
+
+setInterval(createHeart, 600);
+
+// Fallback: play music on first click anywhere
+document.body.addEventListener('click', function playMusicOnce() {
+    const music = document.getElementById("bgMusic");
+    music.play();
+    document.body.removeEventListener('click', playMusicOnce);
+});
+</script>
+
+</body>
+</html>
